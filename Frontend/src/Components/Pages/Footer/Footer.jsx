@@ -96,7 +96,7 @@ const Footer = () => {
           </div>
 
           <div>
-            <h2 className='text-[20px] leading-[30px] font-[700] mb-6 text-headingColor'>
+            <h2 className='text-[20px] text-center leading-[30px] font-[700] mb-6 text-headingColor'>
               Quick Links
             </h2>
             <ul className='text-center md:text-left'>
@@ -111,7 +111,7 @@ const Footer = () => {
           </div>
 
           <div>
-            <h2 className='text-[20px] leading-[30px] font-[700] mb-6 text-headingColor'>
+            <h2 className='text-[20px] leading-[30px] text-center font-[700] mb-6 text-headingColor'>
               I want to
             </h2>
             <ul className='text-center md:text-left'>
@@ -126,7 +126,7 @@ const Footer = () => {
           </div>
 
           <div>
-            <h2 className='text-[20px] leading-[30px] font-[700] mb-6 text-headingColor'>
+            <h2 className='text-[20px] leading-[30px] text-center  font-[700] mb-6 text-headingColor'>
               Support
             </h2>
             <ul className='text-center md:text-left'>

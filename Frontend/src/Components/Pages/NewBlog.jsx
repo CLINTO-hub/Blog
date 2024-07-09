@@ -4,6 +4,7 @@ import Editor from '../Pages/Editor.jsx';
 import { BASE_URL } from "../../../config.js";
 import { toast } from "react-toastify";
 import { useSelector } from 'react-redux';
+import HashLoader from 'react-spinners/HashLoader';
 import 'react-quill/dist/quill.snow.css';
 
 function NewBlog() {
@@ -65,6 +66,14 @@ function NewBlog() {
     }
   };
 
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <HashLoader size={50} color={"#123abc"} loading={loading} />
+      </div>
+    );
+  }
+
   return (
     <div className="max-w-3xl mx-auto p-8 bg-white shadow-lg rounded-lg">
       <h1 className="text-2xl font-bold mb-6 text-center">Create New Blog Post</h1>
@@ -97,10 +106,17 @@ function NewBlog() {
         />
         <button
           type="submit"
-          className="bg-blue-500 text-white py-2 rounded hover:bg-blue-600 transition duration-300"
+          className="bg-blue-500 text-white py-2 rounded hover:bg-blue-600 transition duration-300 relative"
           style={{ marginTop: '5px' }}
+          disabled={loading} // Disable the button when loading
         >
-          Create Post
+          {loading ? (
+            <div className="absolute inset-0 flex items-center justify-center">
+              <HashLoader size={30} color={"#ffffff"} loading={loading} />
+            </div>
+          ) : (
+            <span>Create Post</span>
+          )}
         </button>
       </form>
     </div>

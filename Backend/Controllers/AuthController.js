@@ -110,6 +110,7 @@ export const login = async (req, res) => {
     }
 }
 
+//SendOtp to mail
 export const sendOtp = async (req, res) => {
     try {
       const { email } = req.body;
@@ -131,6 +132,7 @@ export const sendOtp = async (req, res) => {
   };
 
 
+  //Generate otp for Forgetpassword
   export const forgotPassword = async (req, res) => {
     try {
       const { email } = req.body;

@@ -10,16 +10,17 @@ import Otp from "../Components/Pages/Otp.jsx";
 import ForgotPassword from "../Components/ForgetPassword.jsx";
 import ResetPassword from "../Components/ResetPassword.jsx";
 import Error from "../Components/Pages/Error.jsx";
+import ProtectedRoute from "./ProtectRoute.jsx";
 
 const Routers = ()=>{
     return (
         <Routes>
             <Route path = "/login" element ={<Login/>}/>
-            <Route path = "/" element = {<Home/>}/>
+            <Route path = "/" element = {<ProtectedRoute><Home/></ProtectedRoute>}/>
             <Route path = "/Otp" element = {<Otp/>}/>
-            <Route path = "/home" element = {<Home/>}/>
-            <Route path = "/create" element = {<NewBlog/>}/>
-            <Route path = "/create/:id" element = {<PostPage/>}/>
+            <Route path = "/home" element = {<ProtectedRoute><Home/></ProtectedRoute>}/>
+            <Route path = "/create" element = {<ProtectedRoute><NewBlog/></ProtectedRoute>}/>
+            <Route path = "/create/:id" element = {<ProtectedRoute><PostPage/></ProtectedRoute>}/>
             <Route path = "/editBlog/:id" element = {<EditBlog/>}/>
             <Route path = "/Register" element ={<Register/>}/>
             <Route path ="/ForgetPassword" element ={<ForgotPassword/>}/>

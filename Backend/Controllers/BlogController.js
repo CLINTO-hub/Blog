@@ -45,6 +45,7 @@ export const createBlog = async (req, res) => {
   }
 };
 
+//Get Blog
 export const getBlog = async (req, res) => {
   try {
     const result = await Blog.find().populate('author', ['firstname', 'lastname']).sort({ createdAt: -1 }).limit(20);
@@ -55,6 +56,7 @@ export const getBlog = async (req, res) => {
   }
 };
 
+//Update the Blog
 export const updateBlog = async (req, res) => {
   const id = req.params.id;
 
@@ -92,6 +94,7 @@ export const updateBlog = async (req, res) => {
 };
 
 
+//Find by Id
 export const findBlog = async (req,res)=>{
   try {
     const id = req.params.id
@@ -105,6 +108,7 @@ export const findBlog = async (req,res)=>{
   }
 }
 
+//Delete blog by Id
 export const deleteBlog = async (req, res) => {
   const id = req.params.id;
 
