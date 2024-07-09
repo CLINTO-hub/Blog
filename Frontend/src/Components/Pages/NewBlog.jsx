@@ -108,7 +108,7 @@ function NewBlog() {
           type="submit"
           className="bg-blue-500 text-white py-2 rounded hover:bg-blue-600 transition duration-300 relative"
           style={{ marginTop: '5px' }}
-          disabled={loading} // Disable the button when loading
+          disabled={loading}
         >
           {loading ? (
             <div className="absolute inset-0 flex items-center justify-center">
