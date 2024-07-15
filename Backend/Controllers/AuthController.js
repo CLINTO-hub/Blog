@@ -208,3 +208,30 @@ export const sendOtp = async (req, res) => {
       res.status(500).json({ error: "Internal server error" });
     }
   };
+
+  export const verifyToken = async (req, res) => {
+    try {
+        const token = req.body.token;
+        console.log('token',token);
+        if (!token) {
+            return res.status(400).json({ message: "No token provided" });
+        }
+
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        console.log('decode',decoded);
+        if (!decoded) {
+            return res.status(401).json({ message: "Invalid token" });
+        }
+
+        const user = await User.findById(decoded.id);
+        console.log('user',user);
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        res.status(200).json({ success: true, user });
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).json({ error: "Internal server error" });
+    }
+};

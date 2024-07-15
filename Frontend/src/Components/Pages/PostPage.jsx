@@ -9,7 +9,7 @@ const PostPage = () => {
   const [postInfo, setPostInfo] = useState(null);
   const { id } = useParams();
   const userId = useSelector(state => state.auth.userId);
-  console.log('userrr',userId);
+  console.log('userrr', userId);
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -40,9 +40,8 @@ const PostPage = () => {
 
       const data = await response.json();
       if (response.ok) {
-          navigate('/home')       
+        navigate('/home')
         console.log('Post deleted successfully:', data);
-         
       } else {
         console.error('Failed to delete post:', data.error || 'Unknown error');
       }
@@ -56,31 +55,29 @@ const PostPage = () => {
   }
 
   return (
-    <div className="max-w-3xl mx-auto p-14 bg-white rounded-xl shadow-xl">
-      <h1 className="text-5xl font-bold text-center mb-6 text-gray-800">{postInfo.title}</h1>
+    <div className="max-w-3xl mx-auto p-4 sm:p-6 lg:p-14 bg-white rounded-xl shadow-xl">
+      <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-center mb-6 text-gray-800">{postInfo.title}</h1>
       <time className="block text-center text-gray-500 mb-2">
         {formatISO9075(new Date(postInfo.createdAt))}
       </time>
       <div className="text-center text-gray-600 mb-6">
         by <span className="font-semibold">@{postInfo.author.firstname} {postInfo.author.lastname}</span>
       </div>
-      {userId === postInfo.author._id &&(
-        <div className='justify-center'>
+      {userId === postInfo.author._id && (
+        <div className="flex justify-center mb-4 space-x-2">
           <Link to={`/editBlog/${postInfo._id}`}>
-           <a
-               className="edit bg-blue-600 text-white py-1 px-3 text-sm rounded-md hover:bg-blue-700 inline-flex items-center justify-center self-end"
-                style={{ width: '150px', marginLeft: '200px' }}href="#">Edit this post</a>
-</Link>
-<button
-            className="bg-red-600 text-white py-1 px-3 text-sm rounded-md padding hover:bg-red-700 ml-1"
+            <button className="edit bg-blue-600 text-white py-1 px-3 text-sm rounded-md hover:bg-blue-700">Edit this post</button>
+          </Link>
+          <button
+            className="bg-red-600 text-white py-1 px-3 text-sm rounded-md hover:bg-red-700"
             onClick={handleDeletePost}
           >
             Delete this post
           </button>
-          </div>
+        </div>
       )}
       <img
-        className="w-full h-auto max-w-md mx-auto mb-6 rounded-md shadow-md mt-5 "
+        className="w-full h-auto max-w-md mx-auto mb-6 rounded-md shadow-md"
         src={postInfo.uploadedimg}
         alt=""
       />

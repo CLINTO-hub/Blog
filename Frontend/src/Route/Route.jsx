@@ -27,7 +27,7 @@ const Routers = ()=>{
             <Route path = "/ResetPassword" element ={<ResetPassword/>}/>
             <Route path ="*" element ={<Error/>}/>
         </Routes>
-    )
+)               
 }
 
 export default Routers

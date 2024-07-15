@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { BASE_URL } from "../../../config.js";
 import { Link, useNavigate } from "react-router-dom";
 import login1 from '../../assets/images/login.jpg'
 import { toast } from "react-toastify";
 import Cookies from 'js-cookie';
 import { useDispatch } from "react-redux";
 import { login } from "../../AuthSlice.js";
+import { BASE_URL } from "../../../config.js";
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -17,10 +17,32 @@ const Login = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const jwtToken = Cookies.get('jwt');
-    if (jwtToken) {
-      navigate('/home');
-    }
+    const verifyToken = async () => {
+      const jwtToken = Cookies.get('jwt');
+      console.log('jwt',jwtToken);
+      if (jwtToken) {
+        try {
+          const res = await fetch(`${BASE_URL}/auth/verifyToken`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ token: jwtToken })
+          });
+          const result = await res.json();
+          if (!res.ok) {
+            throw new Error(result.message);
+          }
+          navigate('/home');
+        } catch (error) {
+          Cookies.remove('jwt');
+          navigate('/login');
+          toast.error("Session expired, please log in again");
+          
+        }
+      }
+    };
+    verifyToken();
   }, [navigate]);
 
 
@@ -46,8 +68,12 @@ const Login = () => {
       if(!res.ok){
         throw new Error(result.message)
       }
-      
       Cookies.set('jwt', result.token, { expires: 7 });
+      if (Cookies.get('jwt')) {
+        console.log('Cookie set successfully:', Cookies.get('jwt')); // Debug: Confirm cookie is set
+      } else {
+        console.error('Failed to set cookie'); // Debug: Log failure to set cookie
+      }
       localStorage.setItem('username', result.data.firstname+''+result.data.lastname); 
       dispatch(login({
         userId: result.data._id,

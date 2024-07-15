@@ -5,6 +5,7 @@ import logo from '../../../assets/images/logo.png';
 import Cookies from 'js-cookie';
 import { BASE_URL } from '../../../../config';
 
+
 const navLinks = [
   { path: '/home', display: 'Home' },
   { path: '/create', display: 'Create new Blog' },
