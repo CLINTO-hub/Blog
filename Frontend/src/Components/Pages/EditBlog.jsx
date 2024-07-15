@@ -3,6 +3,7 @@ import { Navigate, useParams } from 'react-router-dom';
 import Editor from './Editor';
 import { BASE_URL } from '../../../config';
 import { toast } from 'react-toastify';
+import HashLoader from 'react-spinners/HashLoader';
 
 export default function EditPost() {
   const { id } = useParams();
@@ -11,6 +12,7 @@ export default function EditPost() {
   const [content, setContent] = useState('');
   const [files, setFiles] = useState('');
   const [redirect, setRedirect] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     fetch(`${BASE_URL}/blog/blog/${id}`)
@@ -28,6 +30,8 @@ export default function EditPost() {
 
   async function updatePost(ev) {
     ev.preventDefault();
+    setLoading(true);
+
     const data = new FormData();
     data.set('title', title);
     data.set('summary', summary);
@@ -46,6 +50,7 @@ export default function EditPost() {
 
       if (response.ok) {
         setRedirect(true);
+        setLoading(false);
         toast.success('Post updated successfully');
       } else {
         const errorData = await response.json();
@@ -55,6 +60,14 @@ export default function EditPost() {
       console.error('Update failed:', error);
       toast.error('Failed to update post');
     }
+  }
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <HashLoader size={50} color={"#123abc"} loading={loading} />
+      </div>
+    );
   }
 
   if (redirect) {
